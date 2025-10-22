@@ -1,12 +1,13 @@
 package com.debu.prescriptoVault.dto;
+import lombok.*;
 
-import lombok.Getter;
-import lombok.Setter;
-
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-public class AuthRequest {
+public class AuthRequest{
+
+    private String name;
     private String email;
     private String password;
-    private String name;
 }

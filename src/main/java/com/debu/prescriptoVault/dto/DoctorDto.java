@@ -5,10 +5,8 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UploadResponse{
-
+public class DoctorDto{
     private Long id;
-    private String fileName;
-    private String message;
-
+    private String name;
+    private String email;
 }

@@ -1,35 +1,36 @@
 package com.debu.prescriptoVault.entity;
-
-
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
 import java.time.LocalDateTime;
 
+
 @Entity
-@Table(name = "prescriptions_tbl")
+@Table(name="prescriptions_tbl")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Prescription {
+@ToString
+public class Prescription{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String patientId;
-    private String patientPhone;
-    private String accessKey;
+
     private String fileName;
+
     private String filePath;
+
     private LocalDateTime uploadedAt;
 
+
     @ManyToOne
-    @JoinColumn(name = "doctor_id", referencedColumnName = "id")
+    @JoinColumn(name="patient_id",referencedColumnName="id")
+    private Patient patient;
+
+    @ManyToOne
+    @JoinColumn(name="doctor_id",referencedColumnName="id")
     private Doctor doctor;
 
-}
 
+}

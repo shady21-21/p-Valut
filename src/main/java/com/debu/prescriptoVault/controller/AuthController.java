@@ -1,5 +1,4 @@
 package com.debu.prescriptoVault.controller;
-
 import com.debu.prescriptoVault.config.JwtUtil;
 import com.debu.prescriptoVault.dto.AuthRequest;
 import com.debu.prescriptoVault.dto.AuthResponse;
@@ -13,10 +12,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin
 public class AuthController{
 
     private final DoctorService doctorService;
+
     private final AuthenticationManager authManager;
+
     private final JwtUtil jwtUtil;
 
     public AuthController(DoctorService doctorService,AuthenticationManager authManager,JwtUtil jwtUtil){
@@ -25,14 +27,17 @@ public class AuthController{
         this.jwtUtil=jwtUtil;
     }
 
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody AuthRequest req){
         try{
             Doctor d=doctorService.register(req.getName(),req.getEmail(),req.getPassword());
             String token=jwtUtil.generateToken(d.getEmail());
-            return ResponseEntity.status(HttpStatus.CREATED).body(new AuthResponse("Doctor registered successfully",token));
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(new AuthResponse("Doctor registered successfully",token));
         }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new AuthResponse("Registration failed: "+e.getMessage(),null));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new AuthResponse("Registration failed: "+e.getMessage(),null));
         }
     }
 
@@ -43,7 +48,8 @@ public class AuthController{
             String token=jwtUtil.generateToken(req.getEmail());
             return ResponseEntity.ok(new AuthResponse("Login successful",token));
         }catch(Exception e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthResponse("Invalid credentials",null));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(new AuthResponse("Invalid credentials",null));
         }
     }
 }

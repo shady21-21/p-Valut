@@ -1,14 +1,17 @@
 package com.debu.prescriptoVault.dto;
 import lombok.*;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class UploadResponse{
+public class PrescriptionDto{
 
     private Long id;
     private String fileName;
-    private String message;
-
+    private LocalDateTime uploadedAt;
+    private DoctorDto doctor;
+    private PatientDto patient;
 }
+
